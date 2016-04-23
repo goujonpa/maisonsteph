@@ -93,7 +93,7 @@ void draw_cube() {
 
         // shape drawing
         // front
-        glBegin(GL_POLYGON);
+        glBegin(GL_POLYGON); // Ugly coding inc'...
             Point a = {1,1,1,1};
             Point b = {1,1,-1,1};
             Point c = {1,-1,-1,1};
