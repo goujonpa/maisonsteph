@@ -4,7 +4,7 @@
  * Written by Paul GOUJON Apr 2016
  *
  */
-/*
+
 #include "main.h"
 
 void display() {
@@ -32,10 +32,6 @@ void display() {
     draw_pyramid();
 
     if (INIT == true) INIT = false;
-    printf("matrix");
-    for (i = 0; i < 16; i++) {
-        printf("%f, ", pyramid_matrix[i]);
-    }
     glutSwapBuffers();
 }
 
@@ -54,8 +50,9 @@ void reshape(int width, int heigth) {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(EYEX, EYEY, EYEZ, CENTERX, CENTERY, CENTERZ, UPX, UPY, UPZ);
+*/
 }
-*//*
+
 void keyboard(unsigned char key, int x, int y) {
     // adds some keys interactions
 
@@ -115,6 +112,7 @@ int main(int argc, char *argv[])
     glutReshapeFunc(reshape);
 
     // idle
+    glutIdleFunc(idle);
 
     // keyboard
     glutKeyboardFunc(keyboard);
@@ -139,4 +137,4 @@ int main(int argc, char *argv[])
 
     return EXIT_SUCCESS;
 }
-*/
+

@@ -45,6 +45,7 @@ void draw_axis();
 void draw_cube();
 void draw_pyramid();
 void draw_quad(GLdouble height, GLdouble width);
+int get_normal(Point a, Point b, Point c, Point w);
 
 // movement
 void rotate_cube(int direction);

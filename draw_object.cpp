@@ -1,4 +1,45 @@
 #include "draw_object.h"
+#include "math.h"
+
+int get_normal(Point a, Point b, Point c, Point w) {
+    // calculates the normal vector at the point b
+    // and stores it into w
+
+    int i;
+    GLdouble norm;
+    // u and v are the vectors BA and BC
+    Point u; // BA
+    Point v; // BC
+
+    // AB and BC coordinates calculation
+    // BAi = Ai - Bi
+    u[0] = a[0] - b[0];
+    u[1] = a[1] - b[1];
+    u[2] = a[2] - b[2];
+    u[3] = 1;
+    printf("u : [ %f , %f, %f, %f ]\n", u[0], u[1], u[2], u[3]);
+
+    v[0] = c[0] - b[0];
+    v[1] = c[1] - b[1];
+    v[2] = c[2] - b[2];
+    v[3] = 1;
+    printf("v : [ %f , %f, %f, %f ]\n", v[0], v[1], v[2], v[3]);
+
+    // cross product calculation
+    w[0] = u[2]*v[3] - u[3]*v[2];
+    w[1] = u[3]*v[1] - u[1]*v[3];
+    w[2] = u[1]*v[2] - u[2]*v[1];
+    w[3] = 1;
+    printf("w : [ %f , %f, %f, %f ]\n", w[0], w[1], w[2], w[3]);
+
+    // normalisation :
+    norm = sqrt(w[0]*w[0] + w[1]*w[1] + w[2]*w[2]);
+    for (i = 0; i < 3; i++) w[i] /= norm;
+    printf("norm : %f\n", norm);
+    printf("w : [ %f , %f, %f, %f ]\n", w[0], w[1], w[2], w[3]);
+
+    return 1;
+}
 
 void draw_axis() {
     // draws the orthonormed system axis
@@ -35,6 +76,7 @@ void draw_quad(GLdouble height, GLdouble width) {
 
 void draw_cube() {
     // draws a cube
+    Point normal;
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -52,6 +94,16 @@ void draw_cube() {
         // shape drawing
         // front
         glBegin(GL_POLYGON);
+            Point a = {1,1,1,1};
+            Point b = {1,1,-1,1};
+            Point c = {1,-1,-1,1};
+            Point d = {1,-1,1,1};
+            switch (MODE) {
+                case 1:
+                    get_normal(a,b,c, normal);
+                    glNormal3dv(normal);
+                    break;
+            }
             glVertex3d(1,1,1);
             glVertex3d(1,1,-1);
             glVertex3d(1,-1,-1);
@@ -59,6 +111,16 @@ void draw_cube() {
         glEnd();
         // right
         glBegin(GL_POLYGON);
+            Point e = {1,1,1,1};
+            Point f = {-1,1,1,1};
+            Point g = {-1,1,-1,1};
+            Point h = {1,1,-1,1};
+            switch (MODE) {
+                case 1:
+                    get_normal(a,b,c, normal);
+                    glNormal3dv(normal);
+                    break;
+            }
             glVertex3d(1,1,1);
             glVertex3d(-1,1,1);
             glVertex3d(-1,1,-1);
@@ -66,6 +128,16 @@ void draw_cube() {
         glEnd();
         // back
         glBegin(GL_POLYGON);
+            Point i = {-1,1,1,1};
+            Point j = {-1,1,-1,1};
+            Point k = {-1,-1,-1,1};
+            Point l = {-1,-1,1,1};
+            switch (MODE) {
+                case 1:
+                    get_normal(a,b,c, normal);
+                    glNormal3dv(normal);
+                    break;
+            }
             glVertex3d(-1,1,1);
             glVertex3d(-1,1,-1);
             glVertex3d(-1,-1,-1);
@@ -73,6 +145,16 @@ void draw_cube() {
         glEnd();
         // left
         glBegin(GL_POLYGON);
+            Point m = {1,1,1,1};
+            Point n = {1,1,-1,1};
+            Point o = {1,-1,-1,1};
+            Point p = {1,-1,1,1};
+            switch (MODE) {
+                case 1:
+                    get_normal(a,b,c, normal);
+                    glNormal3dv(normal);
+                    break;
+            }
             glVertex3d(1,1,1);
             glVertex3d(1,1,-1);
             glVertex3d(1,-1,-1);
@@ -80,6 +162,16 @@ void draw_cube() {
         glEnd();
         // bottom
         glBegin(GL_POLYGON);
+            Point q = {1,1,-1,1};
+            Point r = {1,-1,-1,1};
+            Point s = {-1,-1,-1,1};
+            Point t = {-1,1,-1,1};
+            switch (MODE) {
+                case 1:
+                    get_normal(a,b,c, normal);
+                    glNormal3dv(normal);
+                    break;
+            }
             glVertex3d(1,1,-1);
             glVertex3d(1,-1,-1);
             glVertex3d(-1,-1,-1);
@@ -87,6 +179,16 @@ void draw_cube() {
         glEnd();
         // top
         glBegin(GL_POLYGON);
+            Point u = {1,1,1,1};
+            Point v = {1,-1,1,1};
+            Point w = {-1,-1,1,1};
+            Point x = {-1,1,1,1};
+            switch (MODE) {
+                case 1:
+                    get_normal(a,b,c, normal);
+                    glNormal3dv(normal);
+                    break;
+            }
             glVertex3d(1,1,1);
             glVertex3d(1,-1,1);
             glVertex3d(-1,-1,1);
@@ -100,6 +202,7 @@ void draw_cube() {
 void draw_pyramid() {
     // draws a pyramid
 
+    Point normal;
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
 
@@ -121,6 +224,16 @@ void draw_pyramid() {
 
         // bottom
         glBegin(GL_POLYGON);
+            Point a = {1,1,0,1};
+            Point b = {-1,1,0,1};
+            Point c = {-1,-1,0,1};
+            Point d = {1,-1,0,1};
+            switch (MODE) {
+                case 1:
+                    get_normal(a,b,c, normal);
+                    glNormal3dv(normal);
+                    break;
+            }
             glVertex3d(1,1,0);
             glVertex3d(-1,1,0);
             glVertex3d(-1,-1,0);
@@ -128,35 +241,67 @@ void draw_pyramid() {
         glEnd();
         // front
         glBegin(GL_POLYGON);
+            Point e = {1,1,0,1};
+            Point f = {1,-1,0,1};
+            Point g = {0,0,1,1};
+            switch (MODE) {
+                case 1:
+                    get_normal(a,b,c, normal);
+                    glNormal3dv(normal);
+                    break;
+            }
             glVertex3d(1,1,0);
             glVertex3d(1,-1,0);
             glVertex3d(0,0,1);
         glEnd();
         // right
         glBegin(GL_POLYGON);
+            Point h = {1,1,0,1};
+            Point i = {-1,1,0,1};
+            Point j = {0,0,1,1};
+            switch (MODE) {
+                case 1:
+                    get_normal(a,b,c, normal);
+                    glNormal3dv(normal);
+                    break;
+            }
             glVertex3d(1,1,0);
             glVertex3d(-1,1,0);
             glVertex3d(0,0,1);
         glEnd();
         // back
         glBegin(GL_POLYGON);
+            Point k = {-1,1,0,1};
+            Point l = {-1,-1,0,1};
+            Point m = {0,0,1,1};
+            switch (MODE) {
+                case 1:
+                    get_normal(a,b,c, normal);
+                    glNormal3dv(normal);
+                    break;
+            }
             glVertex3d(-1,1,0);
             glVertex3d(-1,-1,0);
             glVertex3d(0,0,1);
         glEnd();
         // left
         glBegin(GL_POLYGON);
+            Point n = {-1,-1,0,1};
+            Point o = {1,-1,0,1};
+            Point p = {0,0,1,1};
+            switch (MODE) {
+                case 1:
+                    get_normal(a,b,c, normal);
+                    glNormal3dv(normal);
+                    break;
+            }
             glVertex3d(-1,-1,0);
             glVertex3d(1,-1,0);
             glVertex3d(0,0,1);
         glEnd();
-    int i = 0;
 
     // save current transfo state
     glGetDoublev(GL_MODELVIEW_MATRIX, pyramid_matrix);
 
-    for (i = 0; i < 16; i++) {
-        printf("%f | ", pyramid_matrix[i]);
-    }
     glPopMatrix();
 }

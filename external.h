@@ -10,6 +10,9 @@
 #include <GL/glu.h>
 #endif
 
+// def a point type
+typedef GLdouble Point[4];
+
 // mode
 extern int MODE;
 
