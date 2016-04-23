@@ -26,3 +26,9 @@
 *.exe
 *.out
 *.app
+
+# custom
+bin/*
+*.cbp
+*.depend
+*.layout
